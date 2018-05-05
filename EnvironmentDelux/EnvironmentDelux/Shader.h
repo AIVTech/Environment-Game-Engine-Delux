@@ -76,7 +76,7 @@ private:
 	void BindAttributes()
 	{
 		BindAttribute(0, "position");
-		BindAttribute(0, "textureCoords");
+		BindAttribute(1, "textureCoords");
 	}
 
 	void GetAllUniformLocations();

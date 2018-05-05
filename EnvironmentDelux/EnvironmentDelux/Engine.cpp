@@ -58,7 +58,7 @@ int main()
 	};
 
 	std::vector<float> textureCoords = {
-
+	
 		0,0,
 		0,1,
 		1,1,
@@ -83,11 +83,11 @@ int main()
 		0,1,
 		1,1,
 		1,0
-
-
+		
 	};
 
 	std::vector<int> indices = {
+
 		0,1,3,
 		3,1,2,
 		4,5,7,
@@ -104,12 +104,20 @@ int main()
 	};
 
 	Mesh* rawQuad = loader.LoadMesh(vertices, textureCoords, indices);
-	TexturedMesh* texturedQuad = new TexturedMesh(*rawQuad, MeshTexture(loader.LoadTexture("Assets/Textures/brick.jpg")));
-	Entity* quad = new Entity(*texturedQuad, glm::vec3(0, 0, -12), 0, 0, 0, 1);
+	TexturedMesh* texturedQuad = new TexturedMesh(*rawQuad, MeshTexture(loader.LoadTexture("Assets/Textures/woodenCrate.png")));
+	Entity* cube = new Entity(*texturedQuad, glm::vec3(0, 0, -12), 0, 0, 0, 1);
 
 	Mesh* stallRawModel = loader.LoadAssimpMesh("Assets/Models/stall.obj");
 	TexturedMesh* texturedStall = new TexturedMesh(*stallRawModel, MeshTexture(loader.LoadTexture("Assets/Textures/stallTexture.png")));
 	Entity* stall = new Entity(*texturedStall, glm::vec3(2, -0.5f, -16), 0, 0, 0, 0.2f);
+
+	Mesh* farmHouseRaw = loader.LoadAssimpMesh("Assets/Models/farmhouse.obj");
+	TexturedMesh* texturedFarmHouse = new TexturedMesh(*farmHouseRaw, MeshTexture(loader.LoadTexture("Assets/Textures/farmhouseTexture.jpg")));
+	Entity* farmhouse = new Entity(*texturedFarmHouse, glm::vec3(2, -1.5f, -36), 0, 0, 0, 0.2f);
+
+	Mesh* pineRaw = loader.LoadAssimpMesh("Assets/Models/pine.obj");
+	TexturedMesh* texturedPine = new TexturedMesh(*pineRaw, MeshTexture(loader.LoadTexture("Assets/Textures/pine.png")));
+	Entity* pineTree = new Entity(*texturedPine, glm::vec3(-3, -0.8f, -18), 0, 0, 0, 0.12f);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -117,9 +125,14 @@ int main()
 
 	while (!display.WindowShouldClose())
 	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		if (glfwGetKey(display.GetWindow(), GLFW_KEY_1) == GLFW_PRESS)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
 		// Logic
-		quad->IncreaseRotation(0.3f, 0.3f, 0.3f);
-		stall->IncreaseRotation(0, 0.4f, 0);
+		cube->IncreaseRotation(0.0f, 0.08f, 0.0f);
+		stall->IncreaseRotation(0, 0.1f, 0);
 		camera.Move();
 
 		// Rendering
@@ -127,8 +140,10 @@ int main()
 		shader.Start();
 		shader.LoadViewMatrix(camera);
 
-		renderer.Render(quad);
-		//renderer.Render(stall);
+		renderer.Render(cube);
+		renderer.Render(stall);
+		renderer.Render(farmhouse);
+		renderer.Render(pineTree);
 
 		shader.Stop();
 		// Update Display

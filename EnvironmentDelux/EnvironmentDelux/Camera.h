@@ -18,6 +18,14 @@ public:
 
 	void Move()
 	{
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) // run
+		{
+			movingSensitivity = 0.12f;
+		}
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS) // normal speed
+		{
+			movingSensitivity = 0.02f;
+		}
 		if (glfwGetKey(display->GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 		{
 			this->position.z -= movingSensitivity;

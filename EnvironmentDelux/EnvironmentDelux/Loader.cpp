@@ -45,6 +45,7 @@ unsigned int Loader::LoadTexture(const char* filepath)
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
+	textures.push_back(textureID);
 	return textureID;
 }
 
@@ -73,7 +74,7 @@ void Loader::StoreDataInAttributeList(int attributeNumber, int coordSize, std::v
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	vbos.push_back(vboID);
 	glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(float), &data[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(attributeNumber, coordSize, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(attributeNumber, coordSize, GL_FLOAT, false, 0, (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -127,7 +128,8 @@ Mesh* Loader::LoadAssimpMesh(const char* modelPath)
 		if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 		{
 			uvs.push_back(mesh->mTextureCoords[0][i].x);
-			uvs.push_back(mesh->mTextureCoords[0][i].y);
+			uvs.push_back(1 - mesh->mTextureCoords[0][i].y);
+			//std::cout << mesh->mTextureCoords[0][i].x << ", " << 1 - mesh->mTextureCoords[0][i].y << "\n";
 		}
 		else
 		{
@@ -142,6 +144,7 @@ Mesh* Loader::LoadAssimpMesh(const char* modelPath)
 				indices.push_back(face.mIndices[j]);
 		}
 	}
+	//std::cout << "UVS total: " << uvs.size() << "\n";
 
 	return LoadMesh(vertices, uvs, indices);
 }
