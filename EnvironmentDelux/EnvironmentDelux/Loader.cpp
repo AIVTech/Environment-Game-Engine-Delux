@@ -148,3 +148,28 @@ Mesh* Loader::LoadAssimpMesh(const char* modelPath)
 
 	return LoadMesh(vertices, uvs, indices);
 }
+
+AnimatedMesh* Loader::LoadAnimatedMesh(std::vector<float> vertices, std::vector<float> textureCoords, std::vector<int> indices, std::vector<float> jointIds, std::vector<float> vertexWeights)
+{
+	unsigned int vaoID = CreateVAO();
+	BindIndicesBuffer(indices);
+	StoreDataInAttributeList(0, 3, vertices);
+	StoreDataInAttributeList(1, 2, textureCoords);
+	// attribute 2 is reserved for normals
+	StoreDataInAttributeList(3, 3, jointIds);
+	StoreDataInAttributeList(4, 3, vertexWeights);
+	UnbindVAO();
+	return new AnimatedMesh(vaoID, indices.size());
+}
+
+void Loader::StoreIntInAttributeList(int attributeNumber, int attributeSize, std::vector<int> data)
+{
+	unsigned int vboID;
+	glGenBuffers(1, &vboID);
+	glBindBuffer(GL_ARRAY_BUFFER, vboID);
+	vbos.push_back(vboID);
+	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(int), &data[0], GL_STATIC_DRAW);
+	glVertexAttribIPointer(attributeNumber, attributeSize, GL_INT, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+

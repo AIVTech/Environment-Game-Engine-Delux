@@ -6,23 +6,23 @@
 
 // Local Includes
 #include "DisplayManager.h"
-#include "Loader.h"
+#include "StaticLoader.h"
 #include "Shader.h"
-#include "Mesh.h"
 #include "Renderer.h"
-#include "MeshTexture.h"
-#include "TexturedMesh.h"
+#include "StaticModel.h"
 #include "Entity.h"
 #include "Camera.h"
+#include "ModelManager.h"
 
 int main()
 {
 	DisplayManager display = DisplayManager();
 	display.CreateDisplay(1600, 1040, "Environment Delux");
 
-	Loader loader = Loader();
+	StaticLoader loader = StaticLoader();
 	Shader shader = Shader();
 	Renderer renderer = Renderer(shader, &display);
+	ModelManager models = ModelManager(loader);
 
 	std::vector<float> vertices = {
 		-0.5f,0.5f,0,
@@ -103,23 +103,15 @@ int main()
 
 	};
 
-	Mesh* rawQuad = loader.LoadMesh(vertices, textureCoords, indices);
-	TexturedMesh* texturedQuad = new TexturedMesh(*rawQuad, MeshTexture(loader.LoadTexture("Assets/Textures/woodenCrate.png")));
-	Entity* cube = new Entity(*texturedQuad, glm::vec3(0, 0, -12), 0, 0, 0, 1);
+	StaticModel cubeModel;
+	cubeModel.mesh = loader.LoadMesh(vertices, textureCoords, indices);
+	cubeModel.texture = MeshTexture(loader.LoadTexture("Assets/Textures/woodenCrate.png"));
+	Entity* cube = new Entity(cubeModel, glm::vec3(0, 0, -12), 0, 0, 0, 1);
 
-	Mesh* stallRawModel = loader.LoadAssimpMesh("Assets/Models/stall.obj");
-	TexturedMesh* texturedStall = new TexturedMesh(*stallRawModel, MeshTexture(loader.LoadTexture("Assets/Textures/stallTexture.png")));
-	Entity* stall = new Entity(*texturedStall, glm::vec3(2, -0.5f, -16), 0, 0, 0, 0.2f);
-
-	Mesh* farmHouseRaw = loader.LoadAssimpMesh("Assets/Models/farmhouse.obj");
-	TexturedMesh* texturedFarmHouse = new TexturedMesh(*farmHouseRaw, MeshTexture(loader.LoadTexture("Assets/Textures/farmhouseTexture.jpg")));
-	Entity* farmhouse = new Entity(*texturedFarmHouse, glm::vec3(2, -1.5f, -36), 0, 0, 0, 0.2f);
-
-	Mesh* pineRaw = loader.LoadAssimpMesh("Assets/Models/pine.obj");
-	TexturedMesh* texturedPine = new TexturedMesh(*pineRaw, MeshTexture(loader.LoadTexture("Assets/Textures/pine.png")));
-	Entity* pineTree = new Entity(*texturedPine, glm::vec3(-3, -0.8f, -18), 0, 0, 0, 0.12f);
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	
+	Entity* stall = new Entity(models.Stall, glm::vec3(2, -0.5f, -16), 0, 150, 0, 0.2f);
+	Entity* farmhouse = new Entity(models.Farmhouse, glm::vec3(2, -1.5f, -36), 0, 0, 0, 0.2f);
+	Entity* pineTree = new Entity(models.Pine, glm::vec3(-3, -0.8f, -18), 0, 0, 0, 0.12f);
 
 	Camera camera = Camera(&display);
 
@@ -132,7 +124,6 @@ int main()
 		}
 		// Logic
 		cube->IncreaseRotation(0.0f, 0.08f, 0.0f);
-		stall->IncreaseRotation(0, 0.1f, 0);
 		camera.Move();
 
 		// Rendering

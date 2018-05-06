@@ -23,26 +23,23 @@ void Renderer::Prepare()
 
 void Renderer::Render(Entity* entity)
 {
-	TexturedMesh texturedMesh = entity->GetTexturedModel();
-	Mesh mesh = texturedMesh.GetRawMesh();
-	glBindVertexArray(mesh.GetVaoID());
+	glBindVertexArray(entity->GetModel().mesh.GetVaoID());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturedMesh.GetTexture().GetTextureID());
+	glBindTexture(GL_TEXTURE_2D, entity->GetModel().texture.GetTextureID());
 
 	glm::mat4 transformationMatrix = Math::CreateTransformationMatrix(entity->GetPosition(),
 		entity->GetRotX(), entity->GetRotY(), entity->GetRotZ(), entity->GetScale());
 	shader.LoadTransformationMatrix(transformationMatrix);
 
-	glDrawElements(GL_TRIANGLES, mesh.GetVertexCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, entity->GetModel().mesh.GetVertexCount(), GL_UNSIGNED_INT, 0);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glBindVertexArray(0);
 }
-
 
 void Renderer::CreateProjectionMatrix()
 {

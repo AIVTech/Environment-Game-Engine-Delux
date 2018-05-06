@@ -4,15 +4,14 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
-#include "MeshTexture.h"
-#include "TexturedMesh.h"
+#include "StaticModel.h"
 
 class Entity
 {
 public:
-	Entity(TexturedMesh model, glm::vec3 position, float rx, float ry, float rz, float scale);
+	Entity(StaticModel model, glm::vec3 position, float rx, float ry, float rz, float scale);
 
-	TexturedMesh GetTexturedModel() { return this->model; }
+	StaticModel GetModel() { return this->model; }
 	glm::vec3 GetPosition() { return this->position; }
 	float GetRotX() { return this->rx; }
 	float GetRotY() { return this->ry; }
@@ -32,7 +31,7 @@ public:
 	~Entity();
 
 private:
-	TexturedMesh model;
+	StaticModel model;
 	glm::vec3 position;
 	float rx, ry, rz, scale;
 	float Width = 0, Height = 0; // Not absolutely necessery, therefore initially will be 0

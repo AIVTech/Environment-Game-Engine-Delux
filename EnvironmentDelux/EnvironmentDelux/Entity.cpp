@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 
-Entity::Entity(TexturedMesh model, glm::vec3 position, float rx, float ry, float rz, float scale)
+Entity::Entity(StaticModel model, glm::vec3 position, float rx, float ry, float rz, float scale)
 {
 	this->model = model;
 	this->position = position;
