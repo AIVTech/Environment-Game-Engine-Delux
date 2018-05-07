@@ -55,8 +55,6 @@ unsigned int Shader::LoadShader(const char* filepath, unsigned int type)
 	const char* Code = shaderCode.c_str();
 	// 2. compile shaders
 	unsigned int shaderID;
-	int success;
-	char infoLog[512];
 	// vertex shader
 	shaderID = glCreateShader(type);
 	glShaderSource(shaderID, 1, &Code, NULL);

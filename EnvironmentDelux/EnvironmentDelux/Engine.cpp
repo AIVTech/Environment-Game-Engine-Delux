@@ -108,7 +108,6 @@ int main()
 	cubeModel.texture = MeshTexture(loader.LoadTexture("Assets/Textures/woodenCrate.png"));
 	Entity* cube = new Entity(cubeModel, glm::vec3(0, 0, -12), 0, 0, 0, 1);
 
-	
 	Entity* stall = new Entity(models.Stall, glm::vec3(2, -0.5f, -16), 0, 150, 0, 0.2f);
 	Entity* farmhouse = new Entity(models.Farmhouse, glm::vec3(2, -1.5f, -36), 0, 0, 0, 0.2f);
 	Entity* pineTree = new Entity(models.Pine, glm::vec3(-3, -0.8f, -18), 0, 0, 0, 0.12f);

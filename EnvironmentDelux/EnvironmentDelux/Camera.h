@@ -42,6 +42,14 @@ public:
 		{
 			this->position.x += movingSensitivity;
 		}
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			this->yaw += movingSensitivity*3;
+		}
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			this->yaw -= movingSensitivity*3;
+		}
 	}
 
 private:

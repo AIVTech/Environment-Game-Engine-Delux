@@ -81,9 +81,6 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files\shaders</Filter>
-    </ClCompile>
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
@@ -102,6 +99,9 @@
     <ClCompile Include="ModelManager.cpp">
       <Filter>Source Files\world</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -115,15 +115,6 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshTexture.h">
-      <Filter>Header Files\models</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="TexturedMesh.h">
-      <Filter>Header Files\models</Filter>
     </ClInclude>
     <ClInclude Include="Maths.h">
       <Filter>Header Files\utilities</Filter>
@@ -152,14 +143,23 @@
     <ClInclude Include="StaticLoader.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\models</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\models\animated</Filter>
     </ClInclude>
     <ClInclude Include="ModelManager.h">
       <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\models\static</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshTexture.h">
+      <Filter>Header Files\models\static</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedMesh.h">
+      <Filter>Header Files\models\static</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <glad/glad.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
+#include <glad\glad.h>
 #include "Camera.h"
 #include "Maths.h"
 
@@ -11,7 +11,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
 class Shader
 {
 public:
