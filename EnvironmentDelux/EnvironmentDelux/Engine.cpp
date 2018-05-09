@@ -11,6 +11,8 @@
 #include "Renderer.h"
 #include "StaticModel.h"
 #include "Entity.h"
+#include "Terrain.h"
+#include "TerrainRenderer.h"
 #include "Camera.h"
 #include "ModelManager.h"
 
@@ -23,6 +25,8 @@ int main()
 	Shader shader = Shader();
 	Renderer renderer = Renderer(shader, &display);
 	ModelManager models = ModelManager(loader);
+	TerrainShader terrainShader = TerrainShader();
+	TerrainRenderer terrainRenderer = TerrainRenderer(terrainShader, &display);
 
 	std::vector<float> vertices = {
 		-0.5f,0.5f,0,
@@ -106,13 +110,26 @@ int main()
 	StaticModel cubeModel;
 	cubeModel.mesh = loader.LoadMesh(vertices, textureCoords, indices);
 	cubeModel.texture = MeshTexture(loader.LoadTexture("Assets/Textures/woodenCrate.png"));
-	Entity* cube = new Entity(cubeModel, glm::vec3(0, 0, -12), 0, 0, 0, 1);
+	Entity* cube = new Entity(cubeModel, glm::vec3(0, 0.5f, -12), 0, 0, 0, 1);
 
-	Entity* stall = new Entity(models.Stall, glm::vec3(2, -0.5f, -16), 0, 150, 0, 0.2f);
-	Entity* farmhouse = new Entity(models.Farmhouse, glm::vec3(2, -1.5f, -36), 0, 0, 0, 0.2f);
-	Entity* pineTree = new Entity(models.Pine, glm::vec3(-3, -0.8f, -18), 0, 0, 0, 0.12f);
+	std::vector<Entity*> entities;
+	Entity* stall = new Entity(models.Stall, glm::vec3(2, 0, -16), 0, 150, 0, 0.2f);
+	Entity* farmhouse = new Entity(models.Farmhouse, glm::vec3(2, 0, -36), 0, 0, 0, 0.2f);
+	Entity* pineTree = new Entity(models.Pine, glm::vec3(-3, 0, -18), 0, 0, 0, 0.22f);
+	entities.push_back(stall);
+	entities.push_back(farmhouse);
+	entities.push_back(pineTree);
+	
+	for (int i = 0; i < 100; i++)
+	{
+		Entity* fern = new Entity(models.Fern, glm::vec3(rand() % 100 - 50, 0, rand() % 100 - 100), 0, 0, 0, 0.2f);
+		entities.push_back(fern);
+	}
 
 	Camera camera = Camera(&display);
+
+	Terrain* terrain = new Terrain(0, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/grass.jpg")));
+	Terrain* terrain2 = new Terrain(-1, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/grass.jpg")));
 
 	while (!display.WindowShouldClose())
 	{
@@ -129,13 +146,19 @@ int main()
 		renderer.Prepare();
 		shader.Start();
 		shader.LoadViewMatrix(camera);
-
-		renderer.Render(cube);
-		renderer.Render(stall);
-		renderer.Render(farmhouse);
-		renderer.Render(pineTree);
-
+		for (Entity* e : entities)
+		{
+			renderer.Render(e);
+		}
 		shader.Stop();
+
+
+		terrainShader.Start();
+		terrainShader.LoadViewMatrix(camera);
+		terrainRenderer.Render(terrain);
+		terrainRenderer.Render(terrain2);
+		terrainShader.Stop();
+
 		// Update Display
 		display.Update();
 	}
@@ -143,6 +166,7 @@ int main()
 	// Clean Up
 	loader.CleanUp();
 	shader.CleanUp();
+	terrainShader.CleanUp();
 
 	display.Destroy();
 

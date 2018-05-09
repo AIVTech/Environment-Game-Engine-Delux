@@ -12,6 +12,7 @@ public:
 	StaticModel Stall;
 	StaticModel Farmhouse;
 	StaticModel Pine;
+	StaticModel Fern;
 
 private:
 	void LoadModels();

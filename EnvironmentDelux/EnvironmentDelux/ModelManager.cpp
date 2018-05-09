@@ -16,5 +16,8 @@ void ModelManager::LoadModels()
 
 	Pine.mesh = loader.LoadAssimpMesh("Assets/Models/pine.obj");
 	Pine.texture = MeshTexture(loader.LoadTexture("Assets/Textures/pine.png"));
+
+	Fern.mesh = loader.LoadAssimpMesh("Assets/Models/fern.obj");
+	Fern.texture = MeshTexture(loader.LoadTexture("Assets/Textures/fern.png"));
 }
 

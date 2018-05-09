@@ -24,7 +24,7 @@ public:
 		}
 		if (glfwGetKey(display->GetWindow(), GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS) // normal speed
 		{
-			movingSensitivity = 0.02f;
+			movingSensitivity = 0.08f;
 		}
 		if (glfwGetKey(display->GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 		{
@@ -50,12 +50,22 @@ public:
 		{
 			this->yaw -= movingSensitivity*3;
 		}
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			this->position.y += movingSensitivity;
+		}
+		if (glfwGetKey(display->GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			this->position.y -= movingSensitivity;
+			if (position.y < 0.8f)
+				position.y = 0.8f;
+		}
 	}
 
 private:
-	float movingSensitivity = 0.02f;
+	float movingSensitivity = 0.08f;
 	DisplayManager* display;
-	glm::vec3 position = glm::vec3(0, 0, 0);
+	glm::vec3 position = glm::vec3(0, 0.8f, 0);
 	float pitch, yaw, roll;
 };
 

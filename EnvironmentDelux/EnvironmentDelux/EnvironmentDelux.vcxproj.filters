@@ -67,6 +67,12 @@
     <Filter Include="Source Files\world">
       <UniqueIdentifier>{ff0a0cb2-b18c-4065-aea1-b1eca9985f76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\terrain">
+      <UniqueIdentifier>{bd191ba2-2af3-4e2c-9d6b-d29139c697df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\terrain">
+      <UniqueIdentifier>{b7124f56-8609-410f-824d-d089d4c0da20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -100,6 +106,15 @@
       <Filter>Source Files\world</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainRenderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainShader.cpp">
       <Filter>Source Files\shaders</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,12 +176,27 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainRenderer.h">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainShader.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragmentShader.txt">
       <Filter>Source Files\shaders</Filter>
     </Text>
     <Text Include="VertexShader.txt">
+      <Filter>Source Files\shaders</Filter>
+    </Text>
+    <Text Include="TerrainVertexShader.txt">
+      <Filter>Source Files\shaders</Filter>
+    </Text>
+    <Text Include="TerrainFragmentShader.txt">
       <Filter>Source Files\shaders</Filter>
     </Text>
   </ItemGroup>
