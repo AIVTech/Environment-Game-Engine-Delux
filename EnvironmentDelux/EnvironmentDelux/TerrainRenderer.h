@@ -14,23 +14,16 @@
 class TerrainRenderer
 { 
 public:
-	TerrainRenderer(TerrainShader& shader, DisplayManager* display);
+	TerrainRenderer() {}
+	TerrainRenderer(TerrainShader& shader, glm::mat4 projMat);
 
 	void Prepare();
-	void Render(Terrain* terrain);
+	void Render(std::vector<Terrain*> terrains);
 
 	~TerrainRenderer();
 
 private:
 	TerrainShader shader;
-	DisplayManager display;
-	glm::mat4 projectionMatrix;
-
-	float fov = 60;
-	float near_plane = 0.1f;
-	float far_plane = 1000.0f;
-
-	void CreateProjectionMatrix();
 };
 
 #endif // !TERRAINRENDERER_H

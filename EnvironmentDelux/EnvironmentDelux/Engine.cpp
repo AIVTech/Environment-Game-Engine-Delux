@@ -8,11 +8,10 @@
 #include "DisplayManager.h"
 #include "StaticLoader.h"
 #include "Shader.h"
-#include "Renderer.h"
+#include "CoreRenderer.h"
 #include "StaticModel.h"
 #include "Entity.h"
 #include "Terrain.h"
-#include "TerrainRenderer.h"
 #include "Camera.h"
 #include "ModelManager.h"
 
@@ -22,11 +21,8 @@ int main()
 	display.CreateDisplay(1600, 1040, "Environment Delux");
 
 	StaticLoader loader = StaticLoader();
-	Shader shader = Shader();
-	Renderer renderer = Renderer(shader, &display);
+	CoreRenderer renderer = CoreRenderer(&display);
 	ModelManager models = ModelManager(loader);
-	TerrainShader terrainShader = TerrainShader();
-	TerrainRenderer terrainRenderer = TerrainRenderer(terrainShader, &display);
 
 	std::vector<float> vertices = {
 		-0.5f,0.5f,0,
@@ -113,6 +109,7 @@ int main()
 	Entity* cube = new Entity(cubeModel, glm::vec3(0, 0.5f, -12), 0, 0, 0, 1);
 
 	std::vector<Entity*> entities;
+	std::vector<Terrain*> terrains;
 	Entity* stall = new Entity(models.Stall, glm::vec3(2, 0, -16), 0, 150, 0, 0.2f);
 	Entity* farmhouse = new Entity(models.Farmhouse, glm::vec3(2, 0, -36), 0, 0, 0, 0.2f);
 	Entity* pineTree = new Entity(models.Pine, glm::vec3(-3, 0, -18), 0, 0, 0, 0.22f);
@@ -122,14 +119,16 @@ int main()
 	
 	for (int i = 0; i < 100; i++)
 	{
-		Entity* fern = new Entity(models.Fern, glm::vec3(rand() % 100 - 50, 0, rand() % 100 - 100), 0, 0, 0, 0.2f);
+		Entity* fern = new Entity(models.Fern, glm::vec3(rand() % 100 - 50, -0.2f, rand() % 100 - 100), 0, 0, 0, 0.2f);
 		entities.push_back(fern);
 	}
 
 	Camera camera = Camera(&display);
 
-	Terrain* terrain = new Terrain(0, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/grass.jpg")));
-	Terrain* terrain2 = new Terrain(-1, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/grass.jpg")));
+	Terrain* terrain = new Terrain(0, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/desertGround.jpg")));
+	Terrain* terrain2 = new Terrain(-1, -1, loader, MeshTexture(loader.LoadTexture("Assets/Textures/desertGround.jpg")));
+	terrains.push_back(terrain);
+	terrains.push_back(terrain2);
 
 	while (!display.WindowShouldClose())
 	{
@@ -139,25 +138,10 @@ int main()
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 		// Logic
-		cube->IncreaseRotation(0.0f, 0.08f, 0.0f);
 		camera.Move();
 
 		// Rendering
-		renderer.Prepare();
-		shader.Start();
-		shader.LoadViewMatrix(camera);
-		for (Entity* e : entities)
-		{
-			renderer.Render(e);
-		}
-		shader.Stop();
-
-
-		terrainShader.Start();
-		terrainShader.LoadViewMatrix(camera);
-		terrainRenderer.Render(terrain);
-		terrainRenderer.Render(terrain2);
-		terrainShader.Stop();
+		renderer.RenderScene(entities, camera, terrains);
 
 		// Update Display
 		display.Update();
@@ -165,8 +149,7 @@ int main()
 
 	// Clean Up
 	loader.CleanUp();
-	shader.CleanUp();
-	terrainShader.CleanUp();
+	renderer.CleanUp();
 
 	display.Destroy();
 

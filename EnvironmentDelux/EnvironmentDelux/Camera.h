@@ -65,7 +65,7 @@ public:
 private:
 	float movingSensitivity = 0.08f;
 	DisplayManager* display;
-	glm::vec3 position = glm::vec3(0, 0.8f, 0);
+	glm::vec3 position = glm::vec3(0, 1.2f, 0);
 	float pitch, yaw, roll;
 };
 

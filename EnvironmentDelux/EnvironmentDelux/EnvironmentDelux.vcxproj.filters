@@ -90,9 +90,6 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="VAO.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
@@ -117,11 +114,14 @@
     <ClCompile Include="TerrainShader.cpp">
       <Filter>Source Files\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="CoreRenderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityRenderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="DisplayManager.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>
@@ -184,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="TerrainShader.h">
       <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreRenderer.h">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityRenderer.h">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

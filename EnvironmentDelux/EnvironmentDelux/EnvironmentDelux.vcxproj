@@ -131,12 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoreRenderer.cpp" />
     <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="ModelManager.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="EntityRenderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticLoader.cpp" />
     <ClCompile Include="StaticModel.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CoreRenderer.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Joint.h" />
@@ -160,7 +162,7 @@
     <ClInclude Include="MeshTexture.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="EntityRenderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticLoader.h" />
     <ClInclude Include="stb_image.h" />
